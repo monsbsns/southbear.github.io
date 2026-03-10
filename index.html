@@ -1096,40 +1096,304 @@
 
     async function loadMenu() {
         const j2 = {"menu":[
-                                 {
-                                   "code": "M1",
-                                   "name": "Шашлык из свинины",
-                                   "descr": "Cвинины 300г лук кетчуп",
-                                   "type": 1,
-                                   "price": 130000,
-                                   "img": "https://monsbsns.github.io/southbear.github.io/res/m1.jpg?raw=true",
-                                   "name_en": "Shashlyk pork",
-                                   "name_vn": "Thịt xiên nướng thịt lợn",
-                                   "flags": 0
-                                 },
-                                 {
-                                   "code": "M2",
-                                   "name": "Шашлык из баранины",
-                                   "descr": "Cвинины 300г лук кетчуп",
-                                   "type": 1,
-                                   "price": 220000,
-                                   "img": "https://monsbsns.github.io/southbear.github.io/res/m2.jpg?raw=true",
-                                   "name_en": "Shashlyk labm",
-                                   "name_vn": "Thịt cừu xiên nướng",
-                                   "flags": 0
-                                 },
-                                 {
-                                   "code": "S1",
-                                   "name": "Сет «Два мишки на юге» (для двух голодных медведей)",
-                                   "descr": "Шашлык из свинины, Люля, Овощи на мангале, Картофель по-славянски Мишкин соус - 2, Хлебушек ",
-                                   "type": 2,
-                                   "price": 399000,
-                                   "img": "https://monsbsns.github.io/southbear.github.io/res/m3.jpg?raw=true",
-                                   "name_en": "",
-                                   "name_vn": "",
-                                   "flags": 0
-                                 }
-                                ]}
+                     {
+                       "code": "B1",
+                       "name": "Шашлык из свиной шеи 200 г",
+                       "descr": "Сочный шашлык из маринованной свинины, приготовленный на живом огне до румяной корочки. Подаётся с фирменным мишкиным соусом и маринованным лучком.",
+                       "type": 1,
+                       "price": 130000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b1.jpg?raw=true",
+                       "name_en": "Shashlyk pork",
+                       "name_vn": "Thịt xiên nướng thịt lợn",
+                       "flags": 0
+                     },
+                     {
+                       "code": "B2",
+                       "name": "Шашлык из куриных крыльев 250 г",
+                       "descr": "Ароматные куриные крылышки, замаринованные в специях и обжаренные на мангале до хрустящей корочки. Нежное мясо и насыщенный вкус дыма.",
+                       "type": 1,
+                       "price": 150000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b2.jpg?raw=true",
+                       "name_en": "Shashlyk labm",
+                       "name_vn": "Thịt cừu xiên nướng",
+                       "flags": 0
+                     },
+                     {
+                       "code": "B3",
+                       "name": "Шашлык из баранины 200 г",
+                       "descr": "Классический шашлык из сочной баранины, приготовленный на углях. Насыщенный вкус мяса, аромат специй и лёгкий дымок.",
+                       "type": 2,
+                       "price": 220000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b3.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": 0
+                     },
+                     {
+                       "code": "B4",
+                       "name": "Люля-кебаб 200 г",
+                       "descr": "Сочный люля-кебаб из трёх видов мяса (свинина, баранина, курица), приготовленный на шампурах над углями. Нежный, ароматный и очень сытный.",
+                       "type": null,
+                       "price": 110000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b4.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "B5",
+                       "name": "Шашлык из куриных сердечек 150 г",
+                       "descr": "Нежные куриные сердечки, замаринованные со специями и обжаренные на мангале. Любимое блюдо для тех, кто ценит насыщенный мясной вкус.",
+                       "type": null,
+                       "price": 120000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b5.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "B6",
+                       "name": "Шашлык из грибов",
+                       "descr": "Сочные королевские вешенки, приготовленные на мангале до золотистой корочки. Аромат дыма и нежная текстура делают их отличной закуской к мясу.",
+                       "type": null,
+                       "price": 110000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b6.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "B7",
+                       "name": "Хачапури на мангале",
+                       "descr": "Хрустящее слоёное тесто с тянущейся моцареллой, запечённое на мангале. Сытно, ароматно и очень по-домашнему.",
+                       "type": null,
+                       "price": 110000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b7.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "B8",
+                       "name": "Овощи на мангале",
+                       "descr": "Ассорти свежих овощей (помидор, кабачок, баклажан, перец болгарский), запечённых на углях до мягкости и лёгкой карамелизации. Лёгкий и ароматный гарнир к мясу.",
+                       "type": null,
+                       "price": 80000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/b8.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O1",
+                       "name": "Картофель по-славянски",
+                       "descr": "Золотистый картофель с румяной корочкой, приготовленный со специями. Простой, сытный и очень вкусный гарнир.",
+                       "type": null,
+                       "price": 80000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o1.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O2",
+                       "name": "Салат из свежих овощей",
+                       "descr": "Свежие хрустящие овощи (помидор, огурец, болгарский перец, лучок зеленый), нарезанные крупно и приправленные лёгкой заправкой. Идеальное дополнение к шашлыку.",
+                       "type": null,
+                       "price": 80000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o2.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O3",
+                       "name": "Пельмешки отварные",
+                       "descr": "Домашние пельмени, отваренные до нежности и подающиеся с греческим йогуртом. Настоящий вкус домашней кухни.",
+                       "type": null,
+                       "price": 120000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o3.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O4",
+                       "name": "Пельмешки - фри",
+                       "descr": "Хрустящие пельмени, обжаренные до золотистой корочки. Снаружи хрустят, внутри остаются сочными.",
+                       "type": null,
+                       "price": 130000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o4.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O5",
+                       "name": "Мишкин борщ",
+                       "descr": "Наваристый домашний борщ с насыщенным вкусом и ароматом специй. Тёплый, сытный и по-настоящему душевный.",
+                       "type": null,
+                       "price": 120000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o5.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O6",
+                       "name": "Мишкин соус с зеленушкой и луком",
+                       "descr": "Фирменный соус с ароматной зеленью и луком. Идеально дополняет шашлык и блюда с мангала.",
+                       "type": null,
+                       "price": 30000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o6.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "O7",
+                       "name": "Мишкин хлеб",
+                       "descr": "Обжаренные на мангале кусочки хрустящейго хлеба с чесноком",
+                       "type": null,
+                       "price": 5000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/o7.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "S1",
+                       "name": "Сет «Два мишки на юге» 1000 г",
+                       "descr": "Сет подойдет для двух голодных медведей\nШашлык из свиной шеи \nЛюля-кебаб\nОвощи на мангале \nКартофель по-славянски \nМишкин соус - 2\nМишкин хлеб ",
+                       "type": null,
+                       "price": 399000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/s1.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "S2",
+                       "name": "Сет «Мишка греется» 1500 г ",
+                       "descr": "Сет подойдет для 3-4 голодных медведей \nШашлык из свиной шеи -2 \nШашлык из куриных крыльев \nЛюля-кебаб -2\nШашлык из грибов \nКартофель по-славянски \nМишкин соус - 3\nМишкин хлеб",
+                       "type": null,
+                       "price": 799000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/s2.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "S3",
+                       "name": "Сет «Южная берлога» 2800 г",
+                       "descr": "Сет подойдет для 5-6 голодных медведей\nШашлык из свиной шеи - 3\nШашлык из баранины – 2 \nШашлык из куриных крыльев\nЛюля-кебаб -3\nШашлык из грибов \nКартофель по-славянски - 2\nОвощи на мангале \nМишкин соус - 5\nМишкин хлеб",
+                       "type": null,
+                       "price": 1590000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/s3.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "S4",
+                       "name": "Сет «Мишкин пир» 4500 г",
+                       "descr": "Сет подойдет для 7-8 голодных медведей\nШашлык из свиной шеи - 4 \nШашлык из баранины - 2\nШашлык из куриных крыльев - 2\nЛюля-кебаб - 2\nШашлык из куриных сердечек - 2\nШашлык из грибов - 2\nКартофель по-славянски - 3\nОвощи на мангале - 2\nМишкин соус - 7\nМишкин хлеб",
+                       "type": null,
+                       "price": 2290000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/s4.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D1",
+                       "name": "Пиво Saigon",
+                       "descr": "",
+                       "type": null,
+                       "price": 15000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d1.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D2",
+                       "name": "Coca-cola",
+                       "descr": "",
+                       "type": null,
+                       "price": 15000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d2.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D3",
+                       "name": "Лимонад",
+                       "descr": "Апельсиновый лимонад",
+                       "type": null,
+                       "price": 15000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d3.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D4",
+                       "name": "Холодный чай",
+                       "descr": "Напиток в бутылке из натурального чая улун",
+                       "type": null,
+                       "price": 15000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d4.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D5",
+                       "name": "Кофе черный",
+                       "descr": "",
+                       "type": null,
+                       "price": 30000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d5.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D6",
+                       "name": "Кофе со сгущенкой",
+                       "descr": "",
+                       "type": null,
+                       "price": 30000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d6.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D7",
+                       "name": "Кофе с солеными сливками",
+                       "descr": "",
+                       "type": null,
+                       "price": 30000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d7.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     },
+                     {
+                       "code": "D8",
+                       "name": "Кофе с яичным кремом",
+                       "descr": "",
+                       "type": null,
+                       "price": 35000,
+                       "img": "https://monsbsns.github.io/southbear.github.io/res/d8.jpg?raw=true",
+                       "name_en": "",
+                       "name_vn": "",
+                       "flags": null
+                     }
+                    ]}
         //console.log('[TRACE]', "2>>>>>>", j2?.menu);
         if (j2?.menu) {
         menuData = j2.menu.map((item, idx) => ({
