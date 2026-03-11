@@ -5,6 +5,7 @@
   <title>МИШКА НА ЮГЕ</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root{
       --primary: #1a1a1a;
@@ -1012,7 +1013,7 @@
         </div>
       </div>
       <div class="promo-banner">
-        --- НАШЕ МЕНЮ ---
+        --- НАШЕ МЕНЮ (мы работаем с 12 до 20) ---
       </div>
     </div>
   </div>
@@ -1054,6 +1055,15 @@
     let orderHistory = JSON.parse(localStorage.getItem('orderHistory') || '[]');
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
+
+    const nowHour = new Date().getHours() + 7;
+    const workingHours = (nowHour > 11) && (nowHour < 21)
+    if (!workingHours) {
+        var firstElement = document.getElementsByClassName('promo-banner')[0];
+        firstElement.innerHTML = '--- ВНИМАНИЕ мы работаем с 12 до 20, пожалуйста делайте заказ в эти часы ---';
+    }
+
+    window.Telegram.WebApp.ready();
 
     function getChatIdFromMiniApp() {
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
@@ -1253,7 +1263,7 @@
                      {
                        "code": "O7",
                        "name": "Мишкин хлеб",
-                       "descr": "Обжаренные на мангале кусочки хрустящейго хлеба с чесноком",
+                       "descr": "Обжаренные на мангале кусочки хрустящего хлеба с чесноком",
                        "type": null,
                        "price": 5000,
                        "img": "https://monsbsns.github.io/southbear.github.io/res/o7.jpg?raw=true",
@@ -1275,7 +1285,7 @@
                      {
                        "code": "S2",
                        "name": "Сет «Мишка греется» 1500 г ",
-                       "descr": "Сет подойдет для 3-4 голодных медведей \nШашлык из свиной шеи -2 \nШашлык из куриных крыльев \nЛюля-кебаб -2\nШашлык из грибов \nКартофель по-славянски \nМишкин соус - 3\nМишкин хлеб",
+                       "descr": "Сет подойдет для 3-4 голодных медведей \nШашлык из свиной шеи - 2 \nШашлык из куриных крыльев \nЛюля-кебаб - 2\nШашлык из грибов \nКартофель по-славянски \nМишкин соус - 3\nМишкин хлеб",
                        "type": null,
                        "price": 799000,
                        "img": "https://monsbsns.github.io/southbear.github.io/res/s2.jpg?raw=true",
@@ -1545,25 +1555,29 @@
             <div class="cart-total">Итого: ${FMT.format(total)}</div>
             <form id="orderForm" onsubmit="sendOrder(event)">
               <div class="form-group">
-                <label>Никнейм Telegram</label>
-                <input type="text" id="name" placeholder="@username" value="${esc(savedUserData.name||currentChatId)}" required>
+                <label>Имя в Telegram *</label>
+                <input type="text" id="name" placeholder="@user" value="${esc(savedUserData.name||currentChatId)}" required>
               </div>
               <div class="form-group">
-                <label>Способ оплаты</label>
+                <label>Телефон для связи с курьером (Вьетнам) *</label>
+                <input type="tel" id="phone" placeholder="+84 или Нет для информации администратору" value="${esc(savedUserData.phone||'')}" required>
+              </div>
+              <div class="form-group">
+                <label>Способ оплаты *</label>
                 <select id="payment" required>
                   <option value="cash" ${savedUserData.payment==='cash'?'selected':''}>Наличными курьеру</option>
                   <option value="qr" ${savedUserData.payment==='qr'?'selected':''}>QR код (вьетнамский банк)</option>
                 </select>
               </div>
               <div class="form-group">
-                <label>Адрес доставки</label>
+                <label>Адрес доставки *</label>
                 <div class="geo-group">
                   <input type="text" id="address" placeholder="Введите точный адрес или используйте геолокацию" value="${esc(savedUserData.address||'')}" required>
                   <button type="button" class="geo-btn" onclick="getLocation(event)" title="Определить мое местоположение">📍</button>
                 </div>
               </div>
               <div class="form-group">
-                <label>Комментарий (необязательно)</label>
+                <label>Комментарий</label>
                 <textarea id="comment" placeholder="Укажите количество приборов если они нужны, а так же дополнительные пожелания">${esc(savedUserData.comment||'')}</textarea>
               </div>
               <button type="submit" class="btn-primary">Подтвердить заказ</button>
@@ -1660,11 +1674,12 @@
     window.sendOrder = async function(e) {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
       const payment = document.getElementById('payment').value;
       const address = document.getElementById('address').value.trim();
       const comment = document.getElementById('comment').value.trim();
 
-      if (!name || !payment || !address) {
+      if (!name || !phone || !payment || !address) {
         alert('Пожалуйста, заполните обязательные поля.');
         return;
       }
@@ -1681,6 +1696,7 @@
       const total = items.reduce((s,i)=>s + (i.price||0) * (i.qty||0), 0);
       let text = `Заказ #${orderCounter}\n`;
       text += `Клиент: ${name}\n`;
+      text += `Телефон: ${phone}\n`;
       text += `Оплата: ${payment}\n`;
       text += `Адрес: ${address}\n`;
       if (comment) text += `Комментарий: ${comment}\n`;
@@ -1690,13 +1706,13 @@
       });
       text += `\nИтого: ${FMT.format(total)}\n`;
 
-      savedUserData = { name, payment, address, comment };
+      savedUserData = { name, phone, payment, address, comment };
       save('userData', savedUserData);
 
       const orderRecord = {
         id: orderCounter,
         ts: new Date().toISOString(),
-        name, payment, address, comment,
+        name, phone, payment, address, comment,
         items: items.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
         total
       };
