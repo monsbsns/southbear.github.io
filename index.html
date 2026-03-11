@@ -1056,8 +1056,10 @@
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
 
-    const nowHour = new Date().getHours() + 7;
-    const workingHours = (nowHour > 11) && (nowHour < 21)
+    const nowHour = new Date().getUTCHours() + 7;
+    const workingHours = (nowHour > 11) && (nowHour < 21);
+    console.log("nowHour:", nowHour);
+    console.log("workingHours:", workingHours);
     if (!workingHours) {
         var firstElement = document.getElementsByClassName('promo-banner')[0];
         firstElement.innerHTML = '--- ВНИМАНИЕ мы работаем с 12 до 20, пожалуйста делайте заказ в эти часы ---';
