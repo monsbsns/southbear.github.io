@@ -1056,7 +1056,7 @@
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
 
-    const nowHour = new Date().getUTCHours() + 17;
+    const nowHour = new Date().getUTCHours() + 7;
     const workingHours = (nowHour > 11) && (nowHour < 21);
     console.log("nowHour:", nowHour);
     console.log("workingHours:", workingHours);
