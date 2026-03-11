@@ -1009,11 +1009,11 @@
         <img class="logo-img" src="logo.png" alt="МИШКА НА ЮГЕ">
         <div>
           <div class="header-title">МИШКА НА ЮГЕ</div>
-          <div class="header-desc">Доставка шашлыков и русской кухни</div>
+          <div class="header-desc">&#9656; Сочный шашлык и русская кухня</div>
         </div>
       </div>
       <div class="promo-banner">
-        --- НАШЕ МЕНЮ (мы работаем с 12 до 20) ---
+          &#9679;&#9679;&#9679; НАШЕ МЕНЮ &#9679;&#9679;&#9679;<br />мы работаем с 12 до 20
       </div>
     </div>
   </div>
@@ -1056,13 +1056,13 @@
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
 
-    const nowHour = new Date().getUTCHours() + 7;
+    const nowHour = new Date().getUTCHours() + 17;
     const workingHours = (nowHour > 11) && (nowHour < 21);
     console.log("nowHour:", nowHour);
     console.log("workingHours:", workingHours);
     if (!workingHours) {
         var firstElement = document.getElementsByClassName('promo-banner')[0];
-        firstElement.innerHTML = '--- ВНИМАНИЕ мы работаем с 12 до 20, пожалуйста делайте заказ в эти часы ---';
+        firstElement.innerHTML = '&#10069;&#10069;&#10069;  Мы работаем с 12 до 20, пожалуйста делайте заказ в эти часы  &#10069;&#10069;&#10069;';
     }
 
     window.Telegram.WebApp.ready();
@@ -1540,7 +1540,7 @@
       document.getElementById('cartModal').innerHTML = `
         <div class="modal">
           <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
-          <div class="modal-title">Корзина</div>
+          <div class="modal-title">Корзина</div>${workingHours===false?'<br/><P style="color: red;">Сейчас не рабочие часы. Ваш заказ будет обработан сразу после открытия Мишки. Расписание работы смотрите в заголовке страницы заказов.</P><br/>':''}
           ${!items.length ? '<p style="text-align:center;color:var(--text-muted);">Корзина пуста</p>' : `
             <ul class="cart-list">
               ${items.map(i => `
@@ -1625,11 +1625,11 @@
 
     window.getLocation = function(ev) {
       const btn = ev?.target || document.querySelector('.geo-btn');
-      if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+      if (btn) { btn.disabled = true; btn.textContent = '&#x23F3'; }
 
       if (!navigator.geolocation) {
         alert('Геолокация не поддерживается вашим браузером');
-        if (btn) { btn.disabled = false; btn.textContent = '📍'; }
+        if (btn) { btn.disabled = false; btn.textContent = '&#x1F4CD'; }
         return;
       }
 
@@ -1663,11 +1663,11 @@
             const coords = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
             if (addrEl) addrEl.value = coords;
           }
-          if (btn) { btn.disabled = false; btn.textContent = '📍'; }
+          if (btn) { btn.disabled = false; btn.textContent = '&#x1F4CD'; }
         },
         (error) => {
           alert('Не удалось определить местоположение. Пожалуйста, введите адрес вручную.');
-          if (btn) { btn.disabled = false; btn.textContent = '📍'; }
+          if (btn) { btn.disabled = false; btn.textContent = '&#x1F4CD'; }
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
@@ -1696,7 +1696,7 @@
       save('orderCounter', orderCounter);
 
       const total = items.reduce((s,i)=>s + (i.price||0) * (i.qty||0), 0);
-      let text = `Заказ #${orderCounter}\n`;
+      let text = `@BB: Заказ #${orderCounter}\n`;
       text += `Клиент: ${name}\n`;
       text += `Телефон: ${phone}\n`;
       text += `Оплата: ${payment}\n`;
