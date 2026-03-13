@@ -1719,7 +1719,7 @@
       });
       text += `\nИтого: ${FMT.format(total)}\n`;
 
-      savedUserData = { name, phone, payment, address, comment };
+      savedUserData = { name, phone, payment, ''/*address*/, comment };
       save('userData', savedUserData);
 
       const orderRecord = {
