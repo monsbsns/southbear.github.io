@@ -1009,11 +1009,11 @@
         <img class="logo-img" src="logo.png" alt="МИШКА НА ЮГЕ">
         <div>
           <div class="header-title">МИШКА НА ЮГЕ</div>
-          <div class="header-desc">&#9656; Сочный шашлык и русская кухня</div>
+          <div class="header-desc">&#9656; Сочный шашлык и русская кухня в Нячанге</div>
         </div>
       </div>
       <div class="promo-banner">
-          &#9679;&#9679;&#9679; НАШЕ МЕНЮ &#9679;&#9679;&#9679;<br />мы работаем с 12 до 20
+          &#9679;&#9679;&#9679; НАШЕ МЕНЮ &#9679;&#9679;&#9679;<br />мы работаем с 12:00 до 20:00
       </div>
     </div>
   </div>
@@ -1276,7 +1276,7 @@
                      {
                        "code": "S1",
                        "name": "Сет «Два мишки на юге» 1000 г",
-                       "descr": "Сет подойдет для двух голодных медведей\nШашлык из свиной шеи \nЛюля-кебаб\nОвощи на мангале \nКартофель по-славянски \nМишкин соус - 2\nМишкин хлеб ",
+                       "descr": "На 2 персоны:  \nШашлык из свиной шеи | \nЛюля-кебаб | \nОвощи на мангале | \nКартофель по-славянски | \nМишкин соус - 2 | \nМишкин хлеб ",
                        "type": null,
                        "price": 399000,
                        "img": "https://monsbsns.github.io/southbear.github.io/res/s1.jpg?raw=true",
@@ -1287,7 +1287,7 @@
                      {
                        "code": "S2",
                        "name": "Сет «Мишка греется» 1500 г ",
-                       "descr": "Сет подойдет для 3-4 голодных медведей \nШашлык из свиной шеи - 2 \nШашлык из куриных крыльев \nЛюля-кебаб - 2\nШашлык из грибов \nКартофель по-славянски \nМишкин соус - 3\nМишкин хлеб",
+                       "descr": "На 3-4 персоны:  \nШашлык из свиной шеи - 2 | \nШашлык из куриных крыльев | \nЛюля-кебаб - 2 | \nШашлык из грибов | \nКартофель по-славянски | \nМишкин соус - 3 | \nМишкин хлеб",
                        "type": null,
                        "price": 799000,
                        "img": "https://monsbsns.github.io/southbear.github.io/res/s2.jpg?raw=true",
@@ -1298,7 +1298,7 @@
                      {
                        "code": "S3",
                        "name": "Сет «Южная берлога» 2800 г",
-                       "descr": "Сет подойдет для 5-6 голодных медведей\nШашлык из свиной шеи - 3\nШашлык из баранины – 2 \nШашлык из куриных крыльев\nЛюля-кебаб -3\nШашлык из грибов \nКартофель по-славянски - 2\nОвощи на мангале \nМишкин соус - 5\nМишкин хлеб",
+                         "descr": "На 5-6 персон:  \nШашлык из свиной шеи - 3 | \nШашлык из баранины – 2 | \nШашлык из куриных крыльев  | \nЛюля-кебаб -3  | \nШашлык из грибов  | \nКартофель по-славянски - 2  | \nОвощи на мангале  | \nМишкин соус - 5  | \nМишкин хлеб",
                        "type": null,
                        "price": 1590000,
                        "img": "https://monsbsns.github.io/southbear.github.io/res/s3.jpg?raw=true",
@@ -1309,7 +1309,7 @@
                      {
                        "code": "S4",
                        "name": "Сет «Мишкин пир» 4500 г",
-                       "descr": "Сет подойдет для 7-8 голодных медведей\nШашлык из свиной шеи - 4 \nШашлык из баранины - 2\nШашлык из куриных крыльев - 2\nЛюля-кебаб - 2\nШашлык из куриных сердечек - 2\nШашлык из грибов - 2\nКартофель по-славянски - 3\nОвощи на мангале - 2\nМишкин соус - 7\nМишкин хлеб",
+                         "descr": "На 7-8 персон:  \nШашлык из свиной шеи - 4 | \nШашлык из баранины - 2 | \nШашлык из куриных крыльев - 2 | \nЛюля-кебаб - 2 | \nШашлык из куриных сердечек - 2 | \nШашлык из грибов - 2 | \nКартофель по-славянски - 3 | \nОвощи на мангале - 2 | \nМишкин соус - 7 | \nМишкин хлеб",
                        "type": null,
                        "price": 2290000,
                        "img": "https://monsbsns.github.io/southbear.github.io/res/s4.jpg?raw=true",
@@ -1575,12 +1575,12 @@
                 <label>Адрес доставки *</label>
                 <div class="geo-group">
                   <input type="text" id="address" placeholder="Введите точный адрес или используйте геолокацию" value="${esc(savedUserData.address||'')}" required>
-                  <button type="button" class="geo-btn" onclick="getLocation(event)" title="Определить мое местоположение">📍</button>
+                  <button type="button" class="geo-btn" onclick="getLocation(event)" title="Определить мое местоположение">🌐</button>
                 </div>
               </div>
               <div class="form-group">
                 <label>Комментарий</label>
-                <textarea id="comment" placeholder="Укажите количество приборов если они нужны, а так же дополнительные пожелания">${esc(savedUserData.comment||'')}</textarea>
+                <textarea id="comment"  rows="3" placeholder="Укажите количество приборов, если они нужны, дополнительные пожелания или промокод">${esc(savedUserData.comment||'')}</textarea>
               </div>
               <button type="submit" class="btn-primary">Подтвердить заказ</button>
             </form>
@@ -1625,11 +1625,11 @@
 
     window.getLocation = function(ev) {
       const btn = ev?.target || document.querySelector('.geo-btn');
-      if (btn) { btn.disabled = true; btn.textContent = '&#x23F3'; }
+      if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
 
       if (!navigator.geolocation) {
         alert('Геолокация не поддерживается вашим браузером');
-        if (btn) { btn.disabled = false; btn.textContent = '&#x1F4CD'; }
+        if (btn) { btn.disabled = false; btn.textContent = '🌐'; }
         return;
       }
 
@@ -1663,11 +1663,11 @@
             const coords = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
             if (addrEl) addrEl.value = coords;
           }
-          if (btn) { btn.disabled = false; btn.textContent = '&#x1F4CD'; }
+          if (btn) { btn.disabled = false; btn.textContent = '🌐'; }
         },
         (error) => {
           alert('Не удалось определить местоположение. Пожалуйста, введите адрес вручную.');
-          if (btn) { btn.disabled = false; btn.textContent = '&#x1F4CD'; }
+          if (btn) { btn.disabled = false; btn.textContent = '🌐'; }
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
