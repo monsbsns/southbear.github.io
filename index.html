@@ -1404,7 +1404,18 @@
                        "name_en": "",
                        "name_vn": "",
                        "flags": null
-                     }
+                    },
+                    {
+                        "code": "X1",
+                        "name": "Приборы",
+                        "descr": "Вилка, ложка, салфетка, зубочистка",
+                        "type": null,
+                        "price": 0000,
+                        "img": "https://monsbsns.github.io/southbear.github.io/res/x1.jpg?raw=true",
+                        "name_en": "",
+                        "name_vn": "",
+                        "flags": null
+                    }
                     ]}
         //console.log('[TRACE]', "2>>>>>>", j2?.menu);
         if (j2?.menu) {
@@ -1580,7 +1591,7 @@
               </div>
               <div class="form-group">
                 <label>Комментарий</label>
-                <textarea id="comment"  rows="3" placeholder="Укажите количество приборов, если они нужны, дополнительные пожелания или промокод">${esc(savedUserData.comment||'')}</textarea>
+                <textarea id="comment"  placeholder="Дополнительные пожелания или промокод">${esc(savedUserData.comment||'')}</textarea>
               </div>
               <button type="submit" class="btn-primary">Подтвердить заказ</button>
             </form>
