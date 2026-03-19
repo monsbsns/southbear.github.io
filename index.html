@@ -1000,6 +1000,13 @@
         font-size: 20px;
       }
     }
+
+    .i10l-switch {
+      margin-left: auto;
+      margin-right: 0;
+      padding-right: 50px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -1011,6 +1018,7 @@
           <div class="header-title">МИШКА НА ЮГЕ</div>
           <div class="header-desc">&#9656; Сочный шашлык и русская кухня в Нячанге</div>
         </div>
+        <div id="lang-switch" class="i10l-switch"  onclick="changeLang()">RU</div>
       </div>
       <div class="promo-banner">
         &#9679;&#9679;&#9679; НАШЕ МЕНЮ &#9679;&#9679;&#9679;<br />мы работаем с 12:00 до 20:00
@@ -1048,18 +1056,31 @@
   <script>
     const TG_TOKEN = '8256605204:AAEmfGy6h4qNmq4g9P1Qm5ytHDgc5IT2YmM';
     const TG_CHAT = '7986282280'; // m-7986282280
+    let LANG = 'RU';
     const FMT = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 });
 
     let menuData = [];
+    let jsonMenu;
     let cart = JSON.parse(localStorage.getItem('cart') || '{}');
     let orderHistory = JSON.parse(localStorage.getItem('orderHistory') || '[]');
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
 
-    window.initMenu = function (jsonMenu) {
+    window.changeLang = function() {
+      if (LANG == 'RU')
+        LANG = 'EN';
+      else
+        LANG = 'RU';
+
+      document.getElementById('lang-switch').innerHTML = LANG;
+
+      initMenu(jsonMenu);
+    }
+
+    window.initMenu = function (jMenu) {
       const menuElement = document.getElementById('menu');
 
-      loadMenu(jsonMenu)
+      loadMenu(jMenu, LANG)
         .then((menu) => {
           menuData = menu;
           renderMenu(menu, menuElement);
@@ -1077,7 +1098,8 @@
       .then((b) => {
         parseCsv(b)
           .then((x) => {
-            window.initMenu(x);
+            jsonMenu = x;
+            window.initMenu(jsonMenu);
           })
       })
       .catch((e) => console.log("errrrrr :" + e));
