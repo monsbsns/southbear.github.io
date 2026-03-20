@@ -1125,7 +1125,7 @@
     window.localizeElements = function (language, texts) {
       localizable = document.getElementsByClassName('i10n');
       Array.from(localizable).forEach((v, i) => {
-        console.log(v.id + ' : ' + v.innerHTML);
+        //console.log(v.id + ' : ' + v.innerHTML);
         v.innerHTML = getElementLocalization(language, texts, v.id);
       })
     }

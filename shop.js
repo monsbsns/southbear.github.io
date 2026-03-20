@@ -302,10 +302,10 @@ window.getLocation = function (ev) {
         const coords = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
         const finalAddress = `${address} (${coords})`;
 
-        const addrEl = document.getElementById('address');
+        const addrEl = document.getElementById('inp-address');
         if (addrEl) addrEl.value = finalAddress;
       } catch (error) {
-        const addrEl = document.getElementById('address');
+        const addrEl = document.getElementById('inp-address');
         const coords = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
         if (addrEl) addrEl.value = coords;
       }
