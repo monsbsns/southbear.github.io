@@ -66,8 +66,8 @@ async function loadMenu(jsonMenu, lang) {
       id: idx + 1,
       code: item.code,
       flags: item.flags,
-      name: lang == 'EN' ? item.name_en : item.name,
-      description: lang == 'EN' ? item.descr_en : item.descr,
+      name: lang == 'en' ? item.name_en : item.name,
+      description: lang == 'en' ? item.descr_en : item.descr,
       type: item.type,
       price: toNum(item.price),
     }));

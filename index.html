@@ -8,6 +8,8 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="papaparse.min.js"></script>
   <script src="shop.js"></script>
+  <script src="ru.js"></script>
+  <script src="en.js"></script>
   <style>
     :root {
       --primary: #1a1a1a;
@@ -1001,6 +1003,9 @@
       }
     }
 
+    .i10l {
+    }
+
     .i10l-switch {
       margin-left: auto;
       margin-right: 0;
@@ -1015,14 +1020,12 @@
       <div class="logo-wrap">
         <img class="logo-img" src="logo.png" alt="МИШКА НА ЮГЕ">
         <div>
-          <div class="header-title">МИШКА НА ЮГЕ</div>
-          <div class="header-desc">&#9656; Сочный шашлык и русская кухня в Нячанге</div>
+          <div id="header-title-text" class="header-title i10l"></div>
+          <div id="header-desc-text" class="header-desc i10l"></div>
         </div>
-        <div id="lang-switch" class="i10l-switch"  onclick="changeLang()">RU</div>
+        <div id="lang-switch" class="i10l-switch i10l"  onclick="changeLang()">RU</div>
       </div>
-      <div class="promo-banner">
-        &#9679;&#9679;&#9679; НАШЕ МЕНЮ &#9679;&#9679;&#9679;<br />мы работаем с 12:00 до 20:00
-      </div>
+      <div id="promo-banner-text" class="promo-banner i10l"></div>
     </div>
   </div>
 
@@ -1056,7 +1059,8 @@
   <script>
     const TG_TOKEN = '8256605204:AAEmfGy6h4qNmq4g9P1Qm5ytHDgc5IT2YmM';
     const TG_CHAT = '7986282280'; // m-7986282280
-    let LANG = 'RU';
+    const DEFLANG = 'ru';
+    let LANG = DEFLANG;
     const FMT = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 });
 
     let menuData = [];
@@ -1066,13 +1070,25 @@
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
 
-    window.changeLang = function() {
-      if (LANG == 'RU')
-        LANG = 'EN';
-      else
-        LANG = 'RU';
+    window.localizeElements = function (language, texts) {
+      localizable = document.getElementsByClassName('i10l');
+      console.log(localizable);
+      Array.from(localizable).forEach((v, i) => {
+        console.log(language+' -> '+texts);
+        console.log(texts[language]);
+        console.log(v.id + ' : ' + v.innerHTML);
+        console.log(texts[language][v.id] + '  VS  '+ texts[DEFLANG][v.id])
+        v.innerHTML = texts[language][v.id] ? texts[language][v.id] : texts[DEFLANG][v.id];
+      })
+    }
 
-      document.getElementById('lang-switch').innerHTML = LANG;
+    window.changeLang = function() {
+      if (LANG == 'ru')
+        LANG = 'en';
+      else
+        LANG = 'ru';
+
+      localizeElements(LANG, L10N);
 
       initMenu(jsonMenu);
     }
@@ -1193,6 +1209,8 @@
       var firstElement = document.getElementsByClassName('promo-banner')[0];
       firstElement.innerHTML = '&#10069;&#10069;&#10069; Мы работаем с 12 до 20 &#10069;&#10069;&#10069;<br>Пожалуйста делайте заказы в эти часы';
     }
+
+    localizeElements(LANG, L10N);
 
     window.Telegram.WebApp.ready();
     const currentChatId = getChatIdFromMiniApp();
