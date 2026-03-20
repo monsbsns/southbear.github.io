@@ -1070,15 +1070,19 @@
     let savedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
     let orderCounter = parseInt(localStorage.getItem('orderCounter') || '0', 10) || 0;
 
+    window.getElementLocalization = function (language, texts, elemId) {
+      return texts[language][elemId] ? texts[language][elemId] : texts[DEFLANG][elemId];
+    }
+
     window.localizeElements = function (language, texts) {
       localizable = document.getElementsByClassName('i10l');
-      console.log(localizable);
       Array.from(localizable).forEach((v, i) => {
-        console.log(language+' -> '+texts);
-        console.log(texts[language]);
-        console.log(v.id + ' : ' + v.innerHTML);
-        console.log(texts[language][v.id] + '  VS  '+ texts[DEFLANG][v.id])
-        v.innerHTML = texts[language][v.id] ? texts[language][v.id] : texts[DEFLANG][v.id];
+        //console.log('---------------------------------------------------');
+        //console.log(language+' -> '+texts);
+        //console.log(texts[language]);
+        //console.log(v.id + ' : ' + v.innerHTML);
+        //console.log(texts[language][v.id] + '  VS  '+ texts[DEFLANG][v.id])
+        v.innerHTML = getElementLocalization(language, texts, v.id);
       })
     }
 

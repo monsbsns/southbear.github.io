@@ -224,7 +224,7 @@ function updateCartFab() {
   const preview = document.getElementById('cartPreview');
   const items = Object.values(cart);
   if (!items.length) {
-    preview.innerHTML = '<div class="cart-preview-title">В корзине ничего нет.</div>';
+    preview.innerHTML = getElementLocalization(LANG, L10N, 'cartPreview');
     return;
   }
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
@@ -377,7 +377,7 @@ window.sendOrder = async function (e) {
   if (comment) text += `Комментарий: ${comment}\n`;
   text += `\nЗаказ:\n`;
   items.forEach(i => {
-    text += `• ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
+    text += `• [${i.code}] ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
   });
   text += `\nИтого: ${FMT.format(total)}\n`;
 
