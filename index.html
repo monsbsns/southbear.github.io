@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>МИШКА НА ЮГЕ</title>
+  <title>МИШКА НА ЮГЕ / SUN BEAR</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -1003,10 +1003,10 @@
       }
     }
 
-    .i10l {
+    .i10n {
     }
 
-    .i10l-switch {
+    .i10n-switch {
       margin-left: auto;
       margin-right: 0;
       padding-right: 50px;
@@ -1018,19 +1018,19 @@
   <div class="header">
     <div class="header-container">
       <div class="logo-wrap">
-        <img class="logo-img" src="logo.png" alt="МИШКА НА ЮГЕ">
+        <img class="logo-img" src="logo.png">
         <div>
-          <div id="header-title-text" class="header-title i10l"></div>
-          <div id="header-desc-text" class="header-desc i10l"></div>
+          <div id="header-title-text" class="header-title i10n"></div>
+          <div id="header-desc-text" class="header-desc i10n"></div>
         </div>
-        <div id="lang-switch" class="i10l-switch i10l"  onclick="changeLang()">RU</div>
+        <div id="lang-switch" class="i10n-switch i10n" onclick="changeLang()">RU</div>
       </div>
-      <div id="promo-banner-text" class="promo-banner i10l"></div>
+      <div id="promo-banner-text" class="promo-banner i10n"></div>
     </div>
   </div>
 
   <div class="menu-controls">
-    <button onclick="showOrderHistory()">📋 История (<span id="historyCount">0</span>)</button>
+    <button id="hist-open-btn" class="i10n" onclick="showOrderHistory()">📋&nbsp;&nbsp;(<span id="historyCount">0</span>)</button>
   </div>
 
   <div class="menu" id="menu"></div>
@@ -1044,16 +1044,64 @@
       <circle cx="38" cy="50" r="3" fill="white" />
     </svg>
     <span id="cartFabCount" class="cart-fab-count"></span>
-    <div class="cart-preview" id="cartPreview"></div>
+    <div class="cart-preview" id="cartPreview">
+      <div id="cart-preview-title" class="cart-preview-title i10n"></div>
+      <div id="cart-preview-items"></div>
+      <div class="cart-preview-total"><div id="cart-preview-total-text" class="i10n" style="display: inline-block;"></div><div id="cart-preview-total-sum" style="display: inline-block;"></div></div>
+    </div>
   </button>
 
-  <div id="cartModal" class="modal-bg"></div>
   <div id="deliveryModal" class="modal-bg"></div>
-  <div id="historyModal" class="modal-bg"></div>
-  <div id="garnishModal" class="modal-bg"></div>
-  <div id="dressingModal" class="modal-bg"></div>
   <div id="imageModal" class="image-modal" onclick="closeImageModal()">
     <img id="imageModalImg" src="" alt="">
+  </div>
+
+  <div id="historyModal" class="modal-bg">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('historyModal')">&times;</button>
+      <div id="hist-modal-title" class="modal-title i10n"></div>
+      <div id="hist-items-holder"></div>
+    </div>
+  </div>
+
+  <div id="cartModal" class="modal-bg">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
+      <div id="cart-modal-title" class="modal-title i10n"></div>
+      <div id="cart-not-working-hours-text" class="i10n" style="color: red; display: none;"></div>
+      <div id="cart-items-holder">
+      </div>
+      <div class="cart-total"><div id="cart-total-text" class="i10n" style="display: inline-block;"></div><div id="cart-total-sum" style="display: inline-block;"></div></div>
+      <form id="orderForm" onsubmit="sendOrder(event)">
+        <div class="form-group">
+          <label id="form-tg-name" class="i10n"></label>
+          <input type="text" id="inp-name" required>
+        </div>
+        <div class="form-group">
+          <label id="form-phone" class="i10n"></label>
+          <input type="tel" id="inp-phone" required>
+        </div>
+        <div class="form-group">
+          <label id="form-payment-type" class="i10n"></label>
+          <select id="inp-payment" required>
+            <option id="form-payment-type-cash" class="i10n" value="cash"></option>
+            <option id="form-payment-type-qr" class="i10n" value="qr"></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="form-address" class="i10n"></label>
+          <div class="geo-group">
+            <input type="text" id="inp-address" required>
+            <button type="button" class="geo-btn" onclick="getLocation(event)">🌐</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label id="form-comment" class="i10n"></label>
+          <textarea id="inp-comment"></textarea>
+        </div>
+        <button id="form-submit" type="submit" class="btn-primary i10n"></button>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -1075,18 +1123,14 @@
     }
 
     window.localizeElements = function (language, texts) {
-      localizable = document.getElementsByClassName('i10l');
+      localizable = document.getElementsByClassName('i10n');
       Array.from(localizable).forEach((v, i) => {
-        //console.log('---------------------------------------------------');
-        //console.log(language+' -> '+texts);
-        //console.log(texts[language]);
-        //console.log(v.id + ' : ' + v.innerHTML);
-        //console.log(texts[language][v.id] + '  VS  '+ texts[DEFLANG][v.id])
+        console.log(v.id + ' : ' + v.innerHTML);
         v.innerHTML = getElementLocalization(language, texts, v.id);
       })
     }
 
-    window.changeLang = function() {
+    window.changeLang = function () {
       if (LANG == 'ru')
         LANG = 'en';
       else
@@ -1126,7 +1170,7 @@
 
 
     document.addEventListener('click', function (e) {
-      const modals = ['cartModal', 'deliveryModal', 'historyModal', 'garnishModal', 'dressingModal'];
+      const modals = ['cartModal', 'deliveryModal', 'historyModal'];
       modals.forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
@@ -1211,7 +1255,7 @@
     const workingHours = (nowHour > 11) && (nowHour < 21);
     if (!workingHours) {
       var firstElement = document.getElementsByClassName('promo-banner')[0];
-      firstElement.innerHTML = '&#10069;&#10069;&#10069; Мы работаем с 12 до 20 &#10069;&#10069;&#10069;<br>Пожалуйста делайте заказы в эти часы';
+      firstElement.innerHTML = +window.getElementLocalization(LANG, L10N, 'non-working-hours-alert');
     }
 
     localizeElements(LANG, L10N);

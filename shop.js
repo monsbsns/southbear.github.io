@@ -86,7 +86,6 @@ function createImgSrc(code) {
   return 'https://monsbsns.github.io/southbear.github.io/res/' + code.toLowerCase() +'.jpg?raw=true'
 }
 
-//HACK:L10N
 function renderMenu(menu, menuElement) {
 
   const items = menu.slice().filter(i => i.flags != 0);
@@ -214,93 +213,68 @@ function updateQuantityDisplays() {
   });
 }
 
-//HACK:L10N
 function updateCartFab() {
   const fab = document.getElementById('cartFab');
   const count = Object.values(cart).reduce((s, i) => s + (i.qty || 0), 0);
   fab.style.display = count > 0 ? 'flex' : 'none';
   document.getElementById('cartFabCount').textContent = count || '';
 
-  const preview = document.getElementById('cartPreview');
   const items = Object.values(cart);
   if (!items.length) {
-    preview.innerHTML = getElementLocalization(LANG, L10N, 'cartPreview');
+    preview.innerHTML = getElementLocalization(LANG, L10N, document.getElementById('cartPreview'));
     return;
   }
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
-  preview.innerHTML = `
-        <div class="cart-preview-title">Корзина</div>
+  document.getElementById('cart-preview-items').innerHTML = `
         ${items.map(i => `<div class="cart-preview-item"><span>${esc(i.name)} x${i.qty}</span><span>${FMT.format((i.price || 0) * i.qty)}</span></div>`).join('')}
-        <div class="cart-preview-total">Итого: ${FMT.format(total)}</div>
       `;
+  document.getElementById('cart-preview-total-sum').innerHTML = `${ FMT.format(total) }`;
 }
 
-//HACK:L10N
 function showCartModal() {
   const items = Object.values(cart).sort((a, b) => a.id - b.id);
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
 
-  document.getElementById('cartModal').innerHTML = `
-        <div class="modal">
-          <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
-          <div class="modal-title">Корзина</div>${workingHours === false ? '<br/><P style="color: red;">Сейчас не рабочие часы. Ваш заказ будет обработан сразу после открытия Мишки. Расписание работы смотрите в заголовке страницы заказов.</P><br/>' : ''}
-          ${!items.length ? '<p style="text-align:center;color:var(--text-muted);">Корзина пуста</p>' : `
-            <ul class="cart-list">
-              ${items.map(i => `
-                <li>
-                  <span>${esc(i.name)} x${i.qty}</span>
-                  <span style="display:flex;align-items:center;gap:8px;">
-                    <button class="remove-btn" onclick="removeFromCart('${i.id}')">−</button>
-                    <span style="margin:0 8px;min-width:80px;text-align:right;">${FMT.format((i.price || 0) * i.qty)}</span>
-                    <button class="add-btn" onclick="duplicateCartItem('${i.id}')">+</button>
-                  </span>
-                </li>
-              `).join('')}
-            </ul>
-            <div class="cart-total">Итого: ${FMT.format(total)}</div>
-            <form id="orderForm" onsubmit="sendOrder(event)">
-              <div class="form-group">
-                <label>Имя в Telegram *</label>
-                <input type="text" id="name" placeholder="@user" value="${esc(savedUserData.name || currentChatId)}" required>
-              </div>
-              <div class="form-group">
-                <label>Телефон для связи с курьером (Вьетнам) *</label>
-                <input type="tel" id="phone" placeholder="+84 или Нет для информации администратору" value="${esc(savedUserData.phone || '')}" required>
-              </div>
-              <div class="form-group">
-                <label>Способ оплаты *</label>
-                <select id="payment" required>
-                  <option value="cash" ${savedUserData.payment === 'cash' ? 'selected' : ''}>Наличными курьеру</option>
-                  <option value="qr" ${savedUserData.payment === 'qr' ? 'selected' : ''}>QR код (вьетнамский банк)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Адрес доставки *</label>
-                <div class="geo-group">
-                  <input type="text" id="address" placeholder="Введите точный адрес или используйте геолокацию" value="${esc(savedUserData.address || '')}" required>
-                  <button type="button" class="geo-btn" onclick="getLocation(event)" title="Определить мое местоположение">🌐</button>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Комментарий</label>
-                <textarea id="comment"  placeholder="Дополнительные пожелания или промокод">${esc(savedUserData.comment || '')}</textarea>
-              </div>
-              <button type="submit" class="btn-primary">Подтвердить заказ</button>
-            </form>
-          `}
-        </div>
-      `;
+  document.getElementById('cart-items-holder').innerHTML = `
+      <ul class="cart-list">
+        ${items.map(i => `
+        <li>
+          <span>${esc(i.name)} x${i.qty}</span>
+          <span style="display:flex;align-items:center;gap:8px;">
+            <button class="remove-btn" onclick="removeFromCart('${i.id}')">−</button>
+            <span style="margin:0 8px;min-width:80px;text-align:right;">${FMT.format((i.price || 0) * i.qty)}</span>
+            <button class="add-btn" onclick="duplicateCartItem('${i.id}')">+</button>
+          </span>
+        </li>
+        `).join('')}
+      </ul>
+    `;
+
+  document.getElementById('cart-total-sum').innerHTML = `${FMT.format(total)}`;
+
+  //placeholders
+  document.getElementById('inp-name').placeholder = getElementLocalization(LANG, L10N, 'inp-name');
+  document.getElementById('inp-phone').placeholder = getElementLocalization(LANG, L10N, 'inp-phone');
+  document.getElementById('inp-address').placeholder = getElementLocalization(LANG, L10N, 'inp-address');
+  document.getElementById('inp-comment').placeholder = getElementLocalization(LANG, L10N, 'inp-comment');
+
+  //values
+  document.getElementById('inp-name').value = `${esc(savedUserData.name || currentChatId)}`;
+  document.getElementById('inp-phone').value = `${esc(savedUserData.phone || '')}`;
+  document.getElementById('inp-address').value = `${esc(savedUserData.address || '')}`;
+  document.getElementById('inp-comment').value = `${esc(savedUserData.comment || '')}`;
+  document.getElementById('inp-payment').value = `${savedUserData.payment || ''}`;
+
   document.getElementById('cartModal').classList.add('show');
 }
 // -*- cart end -*-
 
-//HACK:L10N
 window.getLocation = function (ev) {
   const btn = ev?.target || document.querySelector('.geo-btn');
   if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
 
   if (!navigator.geolocation) {
-    alert('Геолокация не поддерживается вашим браузером');
+    alert(getElementLocalization(LANG, L10N, 'alert-location-not-supported'));
     if (btn) { btn.disabled = false; btn.textContent = '🌐'; }
     return;
   }
@@ -338,14 +312,13 @@ window.getLocation = function (ev) {
       if (btn) { btn.disabled = false; btn.textContent = '🌐'; }
     },
     (error) => {
-      alert('Не удалось определить местоположение. Пожалуйста, введите адрес вручную.');
+      alert(getElementLocalization(LANG, L10N, 'alert-location-not-found'));
       if (btn) { btn.disabled = false; btn.textContent = '🌐'; }
     },
     { enableHighAccuracy: true, timeout: 10000 }
   );
 };
 
-//HACK:L10N
 window.sendOrder = async function (e) {
   e.preventDefault();
   const name = document.getElementById('name').value.trim();
@@ -355,13 +328,13 @@ window.sendOrder = async function (e) {
   const comment = document.getElementById('comment').value.trim();
 
   if (!name || !phone || !payment || !address) {
-    alert('Пожалуйста, заполните обязательные поля.');
+    alert(getElementLocalization(LANG, L10N, 'alert-fill-required-fields'));
     return;
   }
 
   const items = Object.values(cart);
   if (!items.length) {
-    alert('Корзина пуста.');
+    alert(getElementLocalization(LANG, L10N, 'alert-empty-cart'));
     return;
   }
 
@@ -369,17 +342,17 @@ window.sendOrder = async function (e) {
   save('orderCounter', orderCounter);
 
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
-  let text = `@BB: Заказ #${orderCounter}\n`;
-  text += `Клиент: ${name}\n`;
-  text += `Телефон: ${phone}\n`;
-  text += `Оплата: ${payment}\n`;
-  text += `Адрес: ${address}\n`;
-  if (comment) text += `Комментарий: ${comment}\n`;
-  text += `\nЗаказ:\n`;
+  let text = `@BB: Order #${orderCounter}\n`;
+  text += `Client: ${name}\n`;
+  text += `Phone: ${phone}\n`;
+  text += `Payment: ${payment}\n`;
+  text += `Address: ${address}\n`;
+  if (comment) text += `Comment: ${comment}\n`;
+  text += `\nOrder:\n`;
   items.forEach(i => {
     text += `• [${i.code}] ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
   });
-  text += `\nИтого: ${FMT.format(total)}\n`;
+  text += `\nTotal: ${FMT.format(total)}\n`;
 
   //TODO: address
   const es = '';
@@ -412,40 +385,34 @@ window.sendOrder = async function (e) {
   save('cart', cart);
   updateCartFab();
   closeModal('cartModal');
-  alert('Ваш заказ получен. Администратор скоро свяжется с Вами.');
+  alert(getElementLocalization(LANG, L10N, 'alert-empty-cart'));
   //renderMenu();
 };
 
-//HACK:L10N
 window.showOrderHistory = function () {
   const list = (orderHistory || []);
-  document.getElementById('historyModal').innerHTML = `
-        <div class="modal">
-          <button class="modal-close" onclick="closeModal('historyModal')">&times;</button>
-          <div class="modal-title">История заказов</div>
-          ${!list.length ? '<p style="text-align:center;color:var(--text-muted);">История пуста</p>' : `
-            ${list.map(o => `
-              <div class="history-item">
-                <div class="history-header"><span>Заказ #${o.id}</span><span>${(new Date(o.ts)).toLocaleString()}</span></div>
-                <div class="history-products">
-                  ${o.items.map(it => `${esc(it.name)} x${it.qty} (${FMT.format(it.price * it.qty)})`).join('<br>')}
-                </div>
-                <div class="history-footer">
-                  <strong>${FMT.format(o.total)}</strong>
-                  <button class="btn-repeat" onclick='repeatOrder(${o.id})'>Повторить</button>
-                </div>
-              </div>
-            `).join('')}
-          `}
+  document.getElementById('hist-modal-title').innerHTML = `
+      ${!list.length ? '<p style="text-align:center;color:var(--text-muted);">${window.getElementLocalization(LANG, L10N, "hist-empty")}`</p>' : `
+      ${list.map(o => `
+      <div class="history-item">
+        <div class="history-header"><span>#${o.id}</span><span>${(new Date(o.ts)).toLocaleString()}</span></div>
+        <div class="history-products">
+          ${o.items.map(it => `${esc(it.name)} x${it.qty} (${FMT.format(it.price * it.qty)})`).join('<br>')}
         </div>
-      `;
+        <div class="history-footer">
+          <strong>${FMT.format(o.total)}</strong>
+          <button class="btn-repeat" onclick='repeatOrder(${o.id})'>` + window.getElementLocalization(LANG, L10N, 'hist-repeat-btn') + `</button>
+        </div>
+      </div>
+      `).join('')}
+      `}
+  `;
   document.getElementById('historyModal').classList.add('show');
 };
 
-//HACK:L10N
 window.repeatOrder = function (orderId) {
   const order = (orderHistory || []).find(o => o.id === orderId);
-  if (!order) return alert('Заказ не найден');
+  if (!order) return alert(getElementLocalization(LANG, L10N, 'alert-order-not-found'));
   cart = {};
   order.items.forEach(i => cart[i.id] = { id: i.id, name: i.name, price: i.price, qty: i.qty, available: true });
   save('cart', cart);
