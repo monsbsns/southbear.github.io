@@ -141,7 +141,7 @@ window.updateCart = function (id, delta) {
   addToCart(id, delta);
 };
 
-function addToCart(id, delta, garnishId = null, dressingId = null) {
+function addToCart(id, delta) {
   const item = menuData.find(i => i.id === id);
   if (!item) return;
 
@@ -153,8 +153,6 @@ function addToCart(id, delta, garnishId = null, dressingId = null) {
     cart[cartKey] = {
       id: cartKey,
       mainId: id,
-      garnishId: garnishId,
-      dressingId: dressingId,
       name: itemName,
       price: itemPrice,
       qty: 0,
@@ -185,11 +183,7 @@ window.removeFromCart = function (cartKey) {
 window.duplicateCartItem = function (cartKey) {
   if (cart[cartKey]) {
     const item = cart[cartKey];
-    if (item.mainId && item.garnishId) {
-      addToCart(item.mainId, 1, item.garnishId);
-    } else if (item.mainId && item.dressingId) {
-      addToCart(item.mainId, 1, null, item.dressingId);
-    } else if (item.mainId) {
+    if (item.mainId) {
       const mainItem = menuData.find(i => i.id === item.mainId);
       addToCart(item.mainId, 1);
     } else {
@@ -218,6 +212,7 @@ function updateCartFab() {
   const count = Object.values(cart).reduce((s, i) => s + (i.qty || 0), 0);
   fab.style.display = count > 0 ? 'flex' : 'none';
   document.getElementById('cartFabCount').textContent = count || '';
+  const preview = document.getElementById('cartPreview');
 
   const items = Object.values(cart);
   if (!items.length) {
@@ -225,6 +220,7 @@ function updateCartFab() {
     return;
   }
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
+  //console.log("------------>"+document.getElementById('cart-preview-items'));
   document.getElementById('cart-preview-items').innerHTML = `
         ${items.map(i => `<div class="cart-preview-item"><span>${esc(i.name)} x${i.qty}</span><span>${FMT.format((i.price || 0) * i.qty)}</span></div>`).join('')}
       `;
@@ -321,11 +317,11 @@ window.getLocation = function (ev) {
 
 window.sendOrder = async function (e) {
   e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const payment = document.getElementById('payment').value;
-  const address = document.getElementById('address').value.trim();
-  const comment = document.getElementById('comment').value.trim();
+  const name = document.getElementById('inp-name').value.trim();
+  const phone = document.getElementById('inp-phone').value.trim();
+  const payment = document.getElementById('inp-payment').value;
+  const address = document.getElementById('inp-address').value.trim();
+  const comment = document.getElementById('inp-comment').value.trim();
 
   if (!name || !phone || !payment || !address) {
     alert(getElementLocalization(LANG, L10N, 'alert-fill-required-fields'));
@@ -350,7 +346,7 @@ window.sendOrder = async function (e) {
   if (comment) text += `Comment: ${comment}\n`;
   text += `\nOrder:\n`;
   items.forEach(i => {
-    text += `• [${i.code}] ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
+    text += `• ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
   });
   text += `\nTotal: ${FMT.format(total)}\n`;
 
@@ -385,7 +381,7 @@ window.sendOrder = async function (e) {
   save('cart', cart);
   updateCartFab();
   closeModal('cartModal');
-  alert(getElementLocalization(LANG, L10N, 'alert-empty-cart'));
+  alert(getElementLocalization(LANG, L10N, 'alert-order-completed'));
   //renderMenu();
 };
 

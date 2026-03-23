@@ -791,72 +791,6 @@
       font-weight: 500;
     }
 
-    .garnish-modal-content {
-      max-width: 500px;
-    }
-
-    .garnish-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .garnish-subtitle {
-      font-size: 14px;
-      color: var(--text-light);
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .garnish-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .garnish-option {
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-      .garnish-option:hover {
-        border-color: var(--accent);
-        background: white;
-        transform: translateX(4px);
-      }
-
-      .garnish-option.selected {
-        border-color: var(--accent);
-        background: rgba(255,107,53,0.05);
-      }
-
-    .garnish-option-name {
-      font-weight: 600;
-      color: var(--primary);
-      font-size: 15px;
-    }
-
-    .garnish-option-price {
-      font-weight: 700;
-      color: var(--accent);
-      font-size: 15px;
-    }
-
-    .garnish-actions {
-      display: flex;
-      gap: 12px;
-    }
-
     .btn-secondary {
       background: var(--bg);
       color: var(--text);
@@ -1044,7 +978,7 @@
       <circle cx="38" cy="50" r="3" fill="white" />
     </svg>
     <span id="cartFabCount" class="cart-fab-count"></span>
-    <div class="cart-preview" id="cartPreview">
+    <div id="cartPreview" class="cart-preview">
       <div id="cart-preview-title" class="cart-preview-title i10n"></div>
       <div id="cart-preview-items"></div>
       <div class="cart-preview-total"><div id="cart-preview-total-text" class="i10n" style="display: inline-block;"></div><div id="cart-preview-total-sum" style="display: inline-block;"></div></div>
