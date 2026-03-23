@@ -210,13 +210,17 @@ function updateQuantityDisplays() {
 function updateCartFab() {
   const fab = document.getElementById('cartFab');
   const count = Object.values(cart).reduce((s, i) => s + (i.qty || 0), 0);
+  console.log(fab);
+  console.log(count);
+  console.log(document.getElementById('cartFabCount').textContent);
+  console.log(document.getElementById('cartPreview'));
   fab.style.display = count > 0 ? 'flex' : 'none';
   document.getElementById('cartFabCount').textContent = count || '';
   const preview = document.getElementById('cartPreview');
 
   const items = Object.values(cart);
   if (!items.length) {
-    preview.innerHTML = getElementLocalization(LANG, L10N, document.getElementById('cartPreview'));
+    //preview.innerHTML = getElementLocalization(LANG, L10N, document.getElementById('cartPreview'));
     return;
   }
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
