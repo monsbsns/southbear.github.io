@@ -386,7 +386,7 @@ window.sendOrder = async function (e) {
   updateCartFab();
   closeModal('cartModal');
   alert(getElementLocalization(LANG, L10N, 'alert-order-completed'));
-  //renderMenu();
+  renderMenu(menuData, document.getElementById('menu'));
 };
 
 window.showOrderHistory = function () {
@@ -417,6 +417,6 @@ window.repeatOrder = function (orderId) {
   order.items.forEach(i => cart[i.id] = { id: i.id, name: i.name, price: i.price, qty: i.qty, available: true });
   save('cart', cart);
   closeModal('historyModal');
-  //renderMenu();
+  renderMenu(menuData, document.getElementById('menu'));
   showCartModal();
 };
