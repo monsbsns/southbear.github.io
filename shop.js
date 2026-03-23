@@ -210,10 +210,6 @@ function updateQuantityDisplays() {
 function updateCartFab() {
   const fab = document.getElementById('cartFab');
   const count = Object.values(cart).reduce((s, i) => s + (i.qty || 0), 0);
-  console.log(fab);
-  console.log(count);
-  console.log(document.getElementById('cartFabCount').textContent);
-  console.log(document.getElementById('cartPreview'));
   fab.style.display = count > 0 ? 'flex' : 'none';
   document.getElementById('cartFabCount').textContent = count || '';
   const preview = document.getElementById('cartPreview');
@@ -224,7 +220,6 @@ function updateCartFab() {
     return;
   }
   const total = items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
-  //console.log("------------>"+document.getElementById('cart-preview-items'));
   document.getElementById('cart-preview-items').innerHTML = `
         ${items.map(i => `<div class="cart-preview-item"><span>${esc(i.name)} x${i.qty}</span><span>${FMT.format((i.price || 0) * i.qty)}</span></div>`).join('')}
       `;
