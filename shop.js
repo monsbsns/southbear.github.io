@@ -146,6 +146,7 @@ function addToCart(id, delta) {
   if (!item) return;
 
   let cartKey = id;
+  let itemCode = item.code;
   let itemName = item.name;
   let itemPrice = item.price;
 
@@ -153,6 +154,7 @@ function addToCart(id, delta) {
     cart[cartKey] = {
       id: cartKey,
       mainId: id,
+      code: itemCode,
       name: itemName,
       price: itemPrice,
       qty: 0,
@@ -322,7 +324,7 @@ window.sendOrder = async function (e) {
   const address = document.getElementById('inp-address').value.trim();
   const comment = document.getElementById('inp-comment').value.trim();
 
-  if (!name || !phone || !payment || !address) {
+  if (!name || !phone || !payment || !address || !name.startsWith("@")) {
     alert(getElementLocalization(LANG, L10N, 'alert-fill-required-fields'));
     return;
   }
@@ -345,9 +347,11 @@ window.sendOrder = async function (e) {
   if (comment) text += `Comment: ${comment}\n`;
   text += `\nOrder:\n`;
   items.forEach(i => {
-    text += `• ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
+    text += `• [${i.code}] ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
   });
   text += `\nTotal: ${FMT.format(total)}\n`;
+
+  console.log(text);
 
   //TODO: address
   const es = '';
