@@ -347,7 +347,8 @@ window.sendOrder = async function (e) {
   if (comment) text += `Comment: ${comment}\n`;
   text += `\nOrder:\n`;
   items.forEach(i => {
-    text += `• [${i.code}] ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
+    text += `• ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
+    //text += `• [${i.code}] ${i.name} x${i.qty} — ${FMT.format((i.price || 0) * i.qty)}\n`;
   });
   text += `\nTotal: ${FMT.format(total)}\n`;
 
