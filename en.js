@@ -1,7 +1,7 @@
 ﻿L10N.en =
 {
 	"lang-switch": "EN",
-    "promo-banner-text": "&#9679;&#9679;&#9679; MENU &#9679;&#9679;&#9679;<br />open 13:00 - 21:00",
+    "promo-banner-text": "&#9679;&#9679;&#9679; MENU &#9679;&#9679;&#9679;<br />open 14:00 - 22:00",
     "header-desc-text": "&#9656; Hot BBQ and Russian cuisine",
     "header-title-text": "SOON BEAR",
     "cartPreview": "<div class='cart-preview-title'>Cart is empty.</div>",
@@ -36,6 +36,6 @@
     "alert-order-completed": "Order have been confirmed. Admin will contact you soon.",
     "alert-order-not-found": "Order not found",
 
-    "non-working-hours-alert": "&#10069;&#10069;&#10069; Our work hours is 13:00 - 21:00 &#10069;&#10069;&#10069;<br>Please check time before placing the order",
+    "non-working-hours-alert": "&#10069;&#10069;&#10069; Our work hours is 14:00 - 22:00 &#10069;&#10069;&#10069;<br>Please check time before placing the order",
 }
 ;
