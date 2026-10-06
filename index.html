@@ -1187,7 +1187,7 @@
 
     const nowHour = new Date().getUTCHours() + 7;
     const dayOfWeek = new Date().getDay();
-    const workingHours = (nowHour > 12) && (nowHour < 22) && dayOfWeek != 0; // not Sun
+    const workingHours = (nowHour > 13) && (nowHour < 23) && dayOfWeek != 0; // not Sun
     if (!workingHours) {
       var firstElement = document.getElementsByClassName('promo-banner')[0];
       firstElement.innerHTML = +window.getElementLocalization(LANG, L10N, 'non-working-hours-alert');
